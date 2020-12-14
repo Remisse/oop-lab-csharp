@@ -7,9 +7,12 @@ namespace Properties
     /// </summary>
     public class Card
     {
-        private readonly string seed;
-        private readonly string name;
-        private readonly int ordinal;
+        string Seed { get; }
+
+        string Name { get; }
+
+        int Ordinal { get; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Card"/> class.
@@ -19,9 +22,9 @@ namespace Properties
         /// <param name="ordinal">the ordinal number of the card.</param>
         public Card(string name, string seed, int ordinal)
         {
-            this.name = name;
-            this.ordinal = ordinal;
-            this.seed = seed;
+            this.Name = name;
+            this.Ordinal = ordinal;
+            this.Seed = seed;
         }
 
         /// <summary>
@@ -33,22 +36,19 @@ namespace Properties
         {
         }
 
-        // TODO improve
         public string GetSeed()
         {
-            return this.seed;
+            return this.Seed;
         }
 
-        // TODO improve
-        public string GetName()
+       public string GetName()
         {
-            return this.name;
+            return this.Name;
         }
 
-        // TODO improve
         public int GetOrdinal()
         {
-            return this.ordinal;
+            return this.Ordinal;
         }
 
         /// <inheritdoc cref="object.ToString"/>
@@ -58,8 +58,17 @@ namespace Properties
             return $"{this.GetType().Name}(Name={this.GetName()}, Seed={this.GetSeed()}, Ordinal={this.GetOrdinal()})";
         }
 
-        // TODO generate Equals(object obj)
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Card))
+                return false;
+            Card other = (Card) obj;
+            return this.Ordinal == other.Ordinal && this.Seed.Equals(other.GetSeed());
+        }
 
-        // TODO generate GetHashCode()
+        public override int GetHashCode()
+        {
+            return this.Ordinal.GetHashCode() + this.Seed.GetHashCode();
+        }
     }
 }

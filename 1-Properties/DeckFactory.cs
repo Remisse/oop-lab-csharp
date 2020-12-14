@@ -10,37 +10,45 @@ namespace Properties
     public class DeckFactory
     {
         private string[] seeds;
-
         private string[] names;
 
-        // TODO improve
+        IList<string> Seeds
+        {
+            get => this.seeds.ToList();
+            set => this.seeds = value.ToArray();
+        }
+
+        IList<string> Names
+        {
+            get => this.names.ToList();
+            set => this.names = value.ToArray();
+        }
+
+        int DeckSize => this.seeds.Length * this.names.Length;
+
         public IList<string> GetSeeds()
         {
-            return this.seeds.ToList();
+            return this.Seeds;
         }
 
-        // TODO improve
         public void SetSeeds(IList<string> seeds)
         {
-            this.seeds = seeds.ToArray();
+            this.Seeds = seeds;
         }
 
-        // TODO improve
         public IList<string> GetNames()
         {
-            return this.names.ToList();
+            return this.Names;
         }
 
-        // TODO improve
         public void SetNames(IList<string> names)
         {
-            this.names = names.ToArray();
+            this.Names = names;
         }
 
-        // TODO improve
         public int GetDeckSize()
         {
-            return this.names.Length * this.seeds.Length;
+            return this.DeckSize;
         }
 
         /// TODO improve
