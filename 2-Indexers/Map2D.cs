@@ -79,9 +79,7 @@ namespace Indexers
         /// <inheritdoc cref="object.Equals(object?)" />
         public override bool Equals(object obj)
         {
-            if (!(obj is Map2D<TKey1, TKey2, TValue>))
-                return false;
-            var other = (Map2D<TKey1, TKey2, TValue>) obj;
+            var other = obj as Map2D<TKey1, TKey2, TValue>;
             return this.Equals(other);
         }
 
