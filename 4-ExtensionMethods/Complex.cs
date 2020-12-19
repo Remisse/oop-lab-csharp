@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
@@ -51,14 +52,16 @@ namespace ExtensionMethods
         /// <inheritdoc cref="IEquatable{T}.Equals(T)"/>
         public bool Equals(IComplex other)
         {
-            return this.re.Equals(other?.Real) && this.im.Equals(other?.Imaginary);
+            const double tolerance = 0.000000001;
+            return other != null
+                && Math.Abs(this.re - other.Real) < tolerance
+                && Math.Abs(this.im - other.Imaginary) < tolerance;
         }
 
         /// <inheritdoc cref="object.Equals(object?)"/>
         public override bool Equals(object obj)
         {
-            var other = obj as Complex;
-            return this.Equals((IComplex) obj);
+            return this.Equals(obj as IComplex);
         }
 
         /// <inheritdoc cref="object.GetHashCode"/>
