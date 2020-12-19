@@ -42,10 +42,9 @@ namespace ExtensionMethods
         {
             var outString = new StringBuilder();
             outString.Append(this.re.ToString(CultureInfo.CurrentCulture));
-            outString.Append(this.im > 0 ? " + i"
-                : this.im < 0 ? " - i"
+            outString.Append(this.im > 0 ? $" +{this.im}i"
+                : this.im < 0 ? $" {this.im}i"
                 : "");
-            outString.Append(Math.Abs(this.im));
             return outString.ToString();
         }
 
