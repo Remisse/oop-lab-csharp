@@ -1,3 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace ExtensionMethods
 {
     using System;
@@ -5,8 +10,8 @@ namespace ExtensionMethods
     /// <inheritdoc cref="IComplex"/>
     public class Complex : IComplex
     {
-        private readonly double re;
-        private readonly double im;
+        readonly double re;
+        readonly double im;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Complex"/> class.
@@ -20,66 +25,47 @@ namespace ExtensionMethods
         }
 
         /// <inheritdoc cref="IComplex.Real"/>
-        public double Real
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-        }
+        public double Real => this.re;
 
         /// <inheritdoc cref="IComplex.Imaginary"/>
-        public double Imaginary
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-        }
+        public double Imaginary => this.im;
 
         /// <inheritdoc cref="IComplex.Modulus"/>
-        public double Modulus
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-        }
+        public double Modulus => Math.Sqrt(this.re * this.re + this.im * this.im);
 
         /// <inheritdoc cref="IComplex.Phase"/>
-        public double Phase
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-        }
+        public double Phase => Math.Atan2(this.im, this.re);
 
         /// <inheritdoc cref="IComplex.ToString"/>
         public override string ToString()
         {
-            // TODO improve
-            return base.ToString();
+            var outString = new StringBuilder();
+            outString.Append(this.re.ToString(CultureInfo.CurrentCulture));
+            outString.Append(this.im > 0 ? " + i"
+                : this.im < 0 ? " - i"
+                : "");
+            outString.Append(Math.Abs(this.im));
+            return outString.ToString();
         }
 
         /// <inheritdoc cref="IEquatable{T}.Equals(T)"/>
         public bool Equals(IComplex other)
         {
-            throw new System.NotImplementedException();
+            return this.re.Equals(other?.Real) && this.im.Equals(other?.Imaginary);
         }
 
         /// <inheritdoc cref="object.Equals(object?)"/>
         public override bool Equals(object obj)
         {
-            // TODO improve
-            return base.Equals(obj);
+            var other = obj as Complex;
+            return this.Equals((IComplex) obj);
         }
 
         /// <inheritdoc cref="object.GetHashCode"/>
         public override int GetHashCode()
         {
-            // TODO improve
-            return base.GetHashCode();
+            double s = this.re + this.im;
+            return (this.Modulus / (s != 0 ? s : 1.0)).GetHashCode();
         }
     }
 }
