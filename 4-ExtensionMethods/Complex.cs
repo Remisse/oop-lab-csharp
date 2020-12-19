@@ -41,7 +41,7 @@ namespace ExtensionMethods
         public override string ToString()
         {
             var outString = new StringBuilder();
-            outString.Append(this.re.ToString(CultureInfo.CurrentCulture));
+            outString.Append($"{this.re}");
             outString.Append(this.im > 0 ? $" +{this.im}i"
                 : this.im < 0 ? $" {this.im}i"
                 : "");
